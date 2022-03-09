@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification Uploads</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">IQRA Hub Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/timetable/uploads">Timetable Uploads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pdf/uploads">PDF Uploads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/notifications/uploads">Notification Uploads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ask-imam/uploads">Ask Imam Profile</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1 class="ml-3">Notification Uploads</h1>
+
+    <form class="ml-3 w-50" method="post" action="/notifications/message">
+        <div class="form-group">
+            <label>Notification</label>
+            <input type="text" class="form-control" name="message" value="" required>
+            <small class="form-text text-muted">This notfiication will be pushed to the IQRA Hub App</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h3 class="ml-3 mt-3">List of notifications on the app</h3>
+
+    <p class="ml-3 mb-0">Newest to oldest</p>
+    <ul class="list-group w-50 ml-3">
+        {{#unless notfi}}
+            <p class="mt-3 pl-5 font-italic">There are no notifications</p>
+        {{/unless}}
+        {{#each notfi}}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{this.message}}
+                <form name="my_form" method="post" action="/notifications/delete">
+                <input type="hidden" name="notfi" value="{{this.id}}">
+                    <input class="btn btn-danger" type="submit" value="Delete Notification">
+                </form>
+            </li>
+        {{/each}}
+    </ul>
+</body>
+</html>

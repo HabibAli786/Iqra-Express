@@ -1,2 +1,2 @@
-# Iqra-Express
-Express server for Iqra-Hub
+# iqra_backend
+A simple backend server for the iqra app
